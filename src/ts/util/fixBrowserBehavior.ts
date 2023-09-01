@@ -1437,10 +1437,19 @@ export const paste = async (vditor: IVditor, event: (ClipboardEvent | DragEvent)
                     fileReader.readAsDataURL(file);
                     fileReader.onload = () => {
                         let imgHTML = ''
-                        if (vditor.currentMode === "wysiwyg") {
-                            imgHTML += `<img alt="${file.name}" src="${fileReader.result.toString()}">\n`;
+                        if (vditor.options.save) {
+                            let filePath = vditor.options.save.onPaste(fileReader.result, file.name, vditor.options.save.path)
+                            if (vditor.currentMode === "wysiwyg") {
+                                imgHTML += `<img alt="${file.name}" src="${filePath}">\n`;
+                            } else {
+                                imgHTML += `![${file.name}](${filePath})\n`;
+                            }
                         } else {
-                            imgHTML += `![${file.name}](${fileReader.result.toString()})\n`;
+                            if (vditor.currentMode === "wysiwyg") {
+                                imgHTML += `<img alt="${file.name}" src="${fileReader.result.toString()}">\n`;
+                            } else {
+                                imgHTML += `![${file.name}](${fileReader.result.toString()})\n`;
+                            }
                         }
                         document.execCommand("insertHTML", false, imgHTML);
                     }
@@ -1448,7 +1457,7 @@ export const paste = async (vditor: IVditor, event: (ClipboardEvent | DragEvent)
             }
         } else if (textPlain.trim() !== "" && files.length === 0) {
             const range = getEditorRange(vditor);
-            if (range.toString() !== ""  && vditor.lute.IsValidLinkDest(textPlain)) {
+            if (range.toString() !== "" && vditor.lute.IsValidLinkDest(textPlain)) {
                 textPlain = `[${range.toString()}](${textPlain})`;
             }
             if (vditor.currentMode === "ir") {

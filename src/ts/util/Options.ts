@@ -9,6 +9,7 @@ export class Options {
         cache: {
             enable: true,
         },
+        save:null,
         cdn: Constants.CDN,
         classes: {
             preview: "",

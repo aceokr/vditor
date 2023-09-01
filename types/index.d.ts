@@ -342,6 +342,13 @@ interface IPreviewTheme {
     path?: string;
 }
 
+interface ISave{
+    /**保存路径*/
+    path:string;
+    /**保存方法*/
+    onPaste:Function
+}
+
 /** @link https://ld246.com/article/1549638745630#options-upload */
 interface IUpload {
     /** 上传 url */
@@ -714,6 +721,7 @@ interface IOptions {
     icon?: "ant" | "material";
     /** @link https://ld246.com/article/1549638745630#options-upload */
     upload?: IUpload;
+    save?:ISave;
     /** @link https://ld246.com/article/1549638745630#options-classes */
     classes?: IClasses;
     /** 配置自建 CDN 地址。默认值: 'https://unpkg.com/vditor@${VDITOR_VERSION}' */

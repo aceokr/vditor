@@ -47,7 +47,7 @@ module.exports = [
     mode: 'production',
     output: {
       filename: '[name].js',
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, '../notes/public/vditor'),
       // chunkFilename: '[name].bundle.js',
       // publicPath: `${pkg.cdn}/vditor@${pkg.version}/dist/`,
       libraryTarget: 'umd',
